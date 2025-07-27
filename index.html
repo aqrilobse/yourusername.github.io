@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rovus Arctic Air - Портативний кондиціонер</title>
+    <style>
+        :root {
+            --primary: #00a8e8;
+            --secondary: #0077b6;
+            --accent: #ff6b35;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        
+        .product-highlight {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .product-image {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Стилі для галереї */
+        .gallery-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-slide {
+            display: none;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        
+        .gallery-slide.active {
+            display: block;
+        }
+        
+        .gallery-slide img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .gallery-dot.active {
+            background-color: var(--accent);
+        }
+        
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.7);
+            color: var(--dark);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .gallery-arrow:hover {
+            background-color: rgba(255,255,255,0.9);
+        }
+        
+        .gallery-prev {
+            left: 10px;
+        }
+        
+        .gallery-next {
+            right: 10px;
+        }
+        
+        .product-features {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        section {
+            padding: 3rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .benefits {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .spec-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .spec-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 4rem 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            background-color: #ff8535;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .product-highlight {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Rovus Arctic Air</h1>
+            <p class="tagline">Портативний кондиціонер, зволожувач та очищувач повітря</p>
+        </div>
+    </header>
+    
+    <div class="product-highlight">
+        <div class="product-image">
+            <div class="gallery-container">
+                <!-- Фото галереї -->
+                <div class="gallery-slide active">
+                    <img src="C:\Users\pc\Desktop\rovus-arctic-air\1.jpg" alt="Rovus Arctic Air - Чорний">
+                </div>
+                <div class="gallery-slide">
+                    <img src="C:\Users\pc\Desktop\rovus-arctic-air\2.jpg" alt="Rovus Arctic Air - Білий">
+                </div>
+                <div class="gallery-slide">
+                    <img src="C:\Users\pc\Desktop\rovus-arctic-air\3.jpg" alt="Rovus Arctic Air - Синій">
+                </div>
+                <div class="gallery-slide">
+                    <img src="C:\Users\pc\Desktop\rovus-arctic-air\4.jpg" alt="Rovus Arctic Air - Червоний">
+                </div>
+                
+                <!-- Кнопки навігації -->
+                <button class="gallery-arrow gallery-prev">❮</button>
+                <button class="gallery-arrow gallery-next">❯</button>
+                
+                <!-- Точки навігації -->
+                <div class="gallery-nav">
+                    <div class="gallery-dot active"></div>
+                    <div class="gallery-dot"></div>
+                    <div class="gallery-dot"></div>
+                    <div class="gallery-dot"></div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-style: italic;">Доступний у 7 кольорах підсвітки</p>
+        </div>
+        <div class="product-features">
+            <h2>Охолодження 2X швидше!</h2>
+            <ul class="feature-list">
+                <li>Технологія Hydro Chill для миттєвого охолодження</li>
+                <li>Зволожує та очищає повітря</li>
+                <li>3 швидкості роботи</li>
+                <li>Ультратихий режим</li>
+                <li>7 кольорів LED підсвітки</li>
+                <li>Легкий та портативний</li>
+                <li>Енергоефективний</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Інші секції залишаються без змін -->
+    <section id="benefits">
+        <h2>Основні переваги</h2>
+        <div class="benefits">
+            <p>Rovus Arctic Air — це революційний портативний пристрій, який охолоджує, зволожує та очищає повітря у вашому приміщенні. Завдяки інноваційній технології Hydro Chill, він перетворює гаряче повітря на прохолодне та освіжаюче.</p>
+            
+            <div class="specs-grid" style="margin-top: 2rem;">
+                <div class="spec-card">
+                    <h3>Ефективне охолодження</h3>
+                    <p>Охолоджувальна здатність 2X швидше за звичайні вентилятори. Технологія Hydro Chill миттєво перетворює гаряче повітря на прохолодне.</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>Зволоження та очищення</h3>
+                    <p>Випарний повітряний фільтр не лише зволожує повітря, але й очищає його від пилу та алергенів. Багаторазовий фільтр — економія вашого бюджету.</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>Зручне використання</h3>
+                    <p>Швидка та проста ємність для води з верхнім заливанням — до 10 годин безперервної роботи. Регульований повітровідвідник дозволяє направляти потік повітря туди, куди вам потрібно.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="specifications">
+        <h2>Технічні характеристики</h2>
+        <div class="specs-grid">
+            <div class="spec-card">
+                <h3>Основні параметри</h3>
+                <p><strong>Таймер:</strong> до 8 годин</p>
+                <p><strong>Потужність:</strong> 7,5 В</p>
+                <p><strong>Призначення:</strong> очищення повітря/зволоження</p>
+                <p><strong>Тип зволожувача:</strong> холодне зволоження</p>
+            </div>
+            
+            <div class="spec-card">
+                <h3>Резервуар для води</h3>
+                <p><strong>Місткість:</strong> 700 мл</p>
+                <p><strong>Підсвічування:</strong> 7 кольорів LED</p>
+                <p><strong>Швидкості роботи:</strong> 3 (низька, середня, висока)</p>
+                <p><strong>Рівень шуму:</strong> ультранизький</p>
+            </div>
+            
+            <div class="spec-card">
+                <h3>Розміри та вага</h3>
+                <p><strong>Висота:</strong> 17 см</p>
+                <p><strong>Ширина:</strong> 15.5 см</p>
+                <p><strong>Глибина:</strong> 16 см</p>
+                <p><strong>Вага:</strong> 0.870 кг</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="package" style="text-align: center;">
+        <h2>Комплектація</h2>
+        <div class="specs-grid" style="max-width: 600px; margin: 0 auto;">
+            <div class="spec-card">
+                <h3>В комплекті</h3>
+                <p>1x кондиціонер Rovus Arctic Air</p>
+                <p>1x зарядний пристрій</p>
+                <p>1x посібник користувача</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <h2 style="color: white;">Готові до прохолоди?</h2>
+        <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Замовте Rovus Arctic Air прямо зараз та отримайте миттєве охолодження у будь-якому місці!</p>
+        <button class="cta-button">ЗАМОВИТИ ЗАРАЗ</button>
+    </section>
+    
+    <footer>
+        <p>© 2025 Rovus Arctic Air. Всі права захищені.</p>
+        <p style="margin-top: 1rem;">Коля Фіц - офіційний представник</p>
+    </footer>
+
+    <script>
+        // Скрипт для галереї
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.gallery-slide');
+            const dots = document.querySelectorAll('.gallery-dot');
+            const prevBtn = document.querySelector('.gallery-prev');
+            const nextBtn = document.querySelector('.gallery-next');
+            let currentSlide = 0;
+            
+            // Показати поточний слайд
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            // Наступний слайд
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            // Попередній слайд
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+            
+            // Клік по точці
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Кнопки навігації
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Автоматичне гортання (необов'язково)
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Зупинити автоматичне гортання при наведенні
+            const gallery = document.querySelector('.gallery-container');
+            gallery.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            gallery.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
